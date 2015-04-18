@@ -4,7 +4,9 @@
               [secretary.core :as secretary :include-macros true]
               [goog.events :as events]
               [goog.history.EventType :as EventType]
+              [jayq.core :as jayq.core]
               [cljsjs.react :as react])
+    (:use     [jayq.core :only [$]])
     (:import goog.History))
 
 (enable-console-print!)
@@ -34,33 +36,86 @@
   )
 )
 
-;; -------------------------
-;; Views
-;;    <nav>
-;;    <div class="nav-wrapper">
-;;      <a href="#" class="brand-logo">Logo</a>
-;;      <ul id="nav-mobile" class="right hide-on-med-and-down">
-;;        <li><a href="sass.html">Sass</a></li>
-;;        <li><a href="components.html">Components</a></li>
-;;        <li><a href="javascript.html">JavaScript</a></li>
-;;      </ul>
-;;    </div>
-;;    </nav>
+;; Navbar
+
+(defn profile-dropdown-item []
+  [:ul {:id "profile-dropdown" :class "dropdown-content"}
+   [:li
+    [:a {:href "#/finance"} "Finance"]]
+   [:li
+    [:a {:href "#/profile"} "Profile"]]
+   ]
+)
+
+(defn signin-dropdown-item []
+  [:ul {:id "signin-dropdown" :class "dropdown-content"}
+   [:li
+    [:a {:href "#/signin"} "Sign in"]]
+   [:li
+    [:a {:href "#/signup"} "Sign up"]]
+   ]
+)
+
+(defn navbar-dropdowns-data []
+  [:div.dropdown-data
+  [profile-dropdown-item]
+  [signin-dropdown-item]]
+)
+
+(defn navbar []
+  [:div.navbar-container
+    [navbar-dropdowns-data]
+    [:nav
+     [:div.nav-wrapper
+       [:a {:href "#!" :class "brand-logo"} "Bababet"]
+       [:ul {:class "right hide-on-med-and-down"}
+        [:li
+         [:a {:href "#/home"} "Home"]]
+        [:li
+         [:a {:href "#/bet"} "Bet"]]
+        [:li
+         [:a {:href "#!" :class "profile-dropdown-navbar-item" :data-activates "profile-dropdown" }
+          "Profile"
+          [:i {:class "mdi-navigation-arrow-drop-down right"}]]]
+        [:li
+         [:a {:href "#!" :class "signin-dropdown-navbar-item" :data-activates "signin-dropdown" }
+          "Sign in"
+          [:i {:class "mdi-navigation-arrow-drop-down right"}]]]
+      ]
+     ]
+    ]
+  ]
+)
+
+;;
 
 (defn home-page []
-  [:div [:h2 "Landing page"]
-   [:div [:a {:href "#/about"} "go to about page"]]])
+  [:div
+   [navbar]
+   [:div [:a {:href "#/about"} "go to about page"]]
+  ]
+)
 
 (defn about-page []
-  [:div [:h2 "About page"]
-   [:div [:a {:href "#/"} "go to the home page"]]])
+  [:div
+   [navbar]
+   [:div [:a {:href "#/"} "go to the home page"]]
+  ]
+)
 
 (defn profile-page []
-  [:div [:h2 "Profile page"]
-   [:div [:a {:href "#/"} "go to the home page"]]])
+  [:div
+   [navbar]
+   [:div [:a {:href "#/"} "go to the home page"]]
+  ]
+)
 
 (defn current-page []
-  [:div [(session/get :current-page)]])
+  [:div
+    [navbar]]
+    [:div [(session/get :current-page)]
+  ]
+)
 
 ;; -------------------------
 ;; Routes
@@ -85,9 +140,19 @@
 
 ;; -------------------------
 ;; Initialize app
+
 (defn mount-root []
   (reagent/render [current-page] (.getElementById js/document "app")))
 
+(defn activate-dropdowns []
+  (.dropdown ($ ".profile-dropdown-navbar-item"))
+  (.dropdown ($ ".signin-dropdown-navbar-item"))
+             )
+
+;;$(".profile-dropdown-navbar-item").dropdown()
+
 (defn init! []
   (hook-browser-navigation!)
-  (mount-root))
+  (mount-root)
+  (activate-dropdowns)
+)
