@@ -15,13 +15,13 @@ lein deps
 
 Prepare two shell sessions:
 
-- first
+- first - figwheel dev environment
 ```shell
 lein fighweel
 ```
-- second
+- second - application itself
 ```shell
-lein fighweel
+lein run
 ```
 
 Open following link in browser: http://localhost:3000
