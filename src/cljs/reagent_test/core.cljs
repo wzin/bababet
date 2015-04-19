@@ -70,18 +70,18 @@
     [navbar-dropdowns-data]
     [:nav
      [:div.nav-wrapper
-       [:a {:href "#!" :class "brand-logo"} "Bababet"]
+       [:a {:href "" :class "brand-logo"} "Bababet"]
        [:ul {:class "right hide-on-med-and-down"}
         [:li
          [:a {:href "#/"} "Home"]]
         [:li
-         [:a {:href "#/bet"} "Bet"]]
+         [:a {:href "#/propose"} "Propose"]]
         [:li
-         [:a {:href "#!" :class "profile-dropdown-navbar-item" :data-activates "profile-dropdown" }
+         [:a {:href "#" :onclick "return false;" :class "profile-dropdown-navbar-item" :data-activates "profile-dropdown" }
           "Profile"
           [:i {:class "mdi-navigation-arrow-drop-down right"}]]]
         [:li
-         [:a {:href "#!" :class "signin-dropdown-navbar-item" :data-activates "signin-dropdown" }
+         [:a {:href "#" :class "signin-dropdown-navbar-item" :data-activates "signin-dropdown" }
           "Sign in"
           [:i {:class "mdi-navigation-arrow-drop-down right"}]]]
       ]
@@ -164,9 +164,9 @@
 (secretary/defroute "/propose" []
   (session/put! :current-page #'propose-page))
 
-(secretary/defroute "/bet/:id" {:as params}
+(secretary/defroute "/bet/:id" {id :id}
   (session/put! :current-page #'bet-page)
-  (js/console.log (str "Bet: " (:id params)))
+  (js/console.log (str "Bet: " id))
   )
 
 (secretary/defroute "/profile" []
@@ -181,26 +181,28 @@
 (defn activate-dropdowns []
   (.dropdown ($ ".profile-dropdown-navbar-item"))
   (.dropdown ($ ".signin-dropdown-navbar-item"))
-             )
+  (js/console.log "Activated dropdowns")
+)
+
 (defn hook-browser-navigation! []
   (doto (History.)
     (events/listen
      EventType/NAVIGATE
      (fn [event]
-       (secretary/dispatch! (.-token event))))
+       (secretary/dispatch! (.-token event))
+       (activate-dropdowns)
+      ))
     (.setEnabled true)))
 
 ;; -------------------------
 ;; Initialize app
 
 (defn mount-root []
-  (reagent/render [current-page] (.getElementById js/document "app")))
-
-
-;;$(".profile-dropdown-navbar-item").dropdown()
+  (reagent/render [current-page] (.getElementById js/document "app"))
+  (activate-dropdowns)
+)
 
 (defn init! []
   (hook-browser-navigation!)
   (mount-root)
-  (activate-dropdowns)
 )
