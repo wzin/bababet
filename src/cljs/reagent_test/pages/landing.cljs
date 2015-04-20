@@ -1,18 +1,20 @@
 (ns reagent-test.pages.landing
-  (:require [reagent-test.db :as db :refer [app-state]] )
+  (:require [reagent-test.db :as db] )
 )
 
+
+(defn bet [b]
+  [:li
+   [:span (:title b)]
+   [:span (:answers b)]
+   [:span (:creator b)]
+   ])
 
 (defn landing-page []
   [:div
    "Landing page"
    [:ul
-    (for [b (:bets app-state)]
+    (for [b (:bets @db/app-state)]
       [bet b])]
    ])
 
-(defn bet [b]
-  [:li
-   [:span (title b)]
-   [:span (creator b)]
-   ])
