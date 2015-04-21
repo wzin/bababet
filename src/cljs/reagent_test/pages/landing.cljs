@@ -3,18 +3,16 @@
 )
 
 
+;; TODO (wz) create link_to
+
 (defn bet [b]
-  [:li
-   [:span (:title b)]
-   [:span (:answers b)]
-   [:span (:creator b)]
-   ])
+  [:a {:href (str "/#/bet/" (:key b)) :class "collection-item"} (:title b)]
+  )
 
 (defn landing-page []
-  [:div
-   "Landing page"
-   [:ul
-    (for [b (:bets @db/app-state)]
-      [bet b])]
-   ])
-
+  [:div.container {:height "600px"}
+    [:div {:class "collection"}
+      (for [b (:bets @db/app-state)]
+        [bet b])]
+  ]
+   )
