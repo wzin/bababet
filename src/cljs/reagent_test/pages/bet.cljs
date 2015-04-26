@@ -1,5 +1,5 @@
 (ns reagent-test.pages.bet)
 
-(defn bet-page [id]
+(defn bet-page-content [id]
   [:div (str "Bet page: " id)]
   )

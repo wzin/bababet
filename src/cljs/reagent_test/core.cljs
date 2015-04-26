@@ -31,25 +31,25 @@
 (secretary/set-config! :prefix "#")
 
 (secretary/defroute "/" []
-  (session/put! :current-page #'landing/landing-page))
+  (session/put! :current-page #'landing/landing-page-content))
 
 (secretary/defroute "/signin" []
-  (session/put! :current-page #'signin/signin-page))
+  (session/put! :current-page #'signin/signin-page-content))
 
 (secretary/defroute "/signup" []
-  (session/put! :current-page #'signup/signup-page))
+  (session/put! :current-page #'signup/signup-page-content))
 
 (secretary/defroute "/propose" []
-  (session/put! :current-page #'propose/propose-page))
+  (session/put! :current-page #'propose/propose-page-content))
 
 (secretary/defroute "/profile" []
-  (session/put! :current-page #'profile/profile-page))
+  (session/put! :current-page #'profile/profile-page-content))
 
 (secretary/defroute "/finances" []
-  (session/put! :current-page #'finances/finances-page))
+  (session/put! :current-page #'finances/finances-page-content))
 
-(secretary/defroute "/bet/:id" {id :id}
-  (session/put! :current-page #'bet/bet-page)
+(secretary/defroute bet-route "/bet/:id" {id :id}
+  (session/put! :current-page #'bet/bet-page-content)
   (js/console.log (str "Bet: " id))
   )
 

@@ -1,5 +1,5 @@
 (ns reagent-test.pages.signup)
 
-(defn signup-page []
+(defn signup-page-content []
   [:div "Signup page"]
   )

@@ -1,5 +1,5 @@
 (ns reagent-test.pages.signin)
 
-(defn signin-page []
+(defn signin-page-content []
   [:div "Signin page"]
   )
