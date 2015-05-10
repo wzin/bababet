@@ -1,9 +1,7 @@
 (ns reagent-test.pages.landing
   (:require [reagent-test.db :as db]
             [reagent-test.router :as router]
-            [reagent-test.core :as core]
-            )
-)
+            [reagent-test.core :as core]))
 
 ;; TODO (wz) create link_to
 
@@ -13,10 +11,7 @@
    [:td {:class "truncate"} (:creator b)]
    [:td
     [:a {:href (core/bet-route {:id (:key b)})}
-     "Bet"]
-    ]
-   ]
-  )
+     "Bet"]]])
 
 (defn landing-page-content []
   [:div
@@ -28,15 +23,7 @@
        [:tr
         [:th {:data-field "id"} "Name"]
         [:th {:data-field "author"} "Author"]
-        [:th {:data-field "bet"} "Bet"]
-        ]
-       ]
+        [:th {:data-field "bet"} "Bet"]]]
       [:tbody
-       (for [b (:bets @db/app-state)]
-         [bet b])
-       ]
-      ]
-     ]
-    ]
-   ]
-  )
+       (for [b (:bets @db/app-state)] ;; s/for/let
+         [bet b])]]]]])

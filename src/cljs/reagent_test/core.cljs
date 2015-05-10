@@ -1,21 +1,21 @@
 (ns reagent-test.core
   (:require
-            [reagent.core :as reagent :refer [atom]]
-            [reagent.session :as session]
-            [secretary.core :as secretary :include-macros true]
-            [goog.events :as events]
-            [goog.history.EventType :as EventType]
-            [jayq.core :as jayq.core]
-            [reagent-test.pages.landing :as landing]
-            [reagent-test.pages.signin :as signin]
-            [reagent-test.pages.signup :as signup]
-            [reagent-test.pages.propose :as propose]
-            [reagent-test.pages.profile :as profile]
-            [reagent-test.pages.finances :as finances]
-            [reagent-test.pages.bet :as bet]
-            [reagent-test.router :as router]
-            [reagent-test.db :as db]
-            [cljsjs.react :as react])
+   [reagent.core :as reagent :refer [atom]]
+   [reagent.session :as session]
+   [secretary.core :as secretary :include-macros true]
+   [goog.events :as events]
+   [goog.history.EventType :as EventType]
+   [jayq.core :as jayq.core]
+   [reagent-test.pages.landing :as landing]
+   [reagent-test.pages.signin :as signin]
+   [reagent-test.pages.signup :as signup]
+   [reagent-test.pages.propose :as propose]
+   [reagent-test.pages.profile :as profile]
+   [reagent-test.pages.finances :as finances]
+   [reagent-test.pages.bet :as bet]
+   [reagent-test.router :as router]
+   [reagent-test.db :as db]
+   [cljsjs.react :as react])
   (:use     [jayq.core :only [$]])
   (:import goog.History))
 
@@ -25,8 +25,7 @@
 ;; Routes
 
 (defn current-page []
-  [:div [(session/get :current-page)]]
-   )
+  [:div [(session/get :current-page)]])
 
 (secretary/set-config! :prefix "#")
 
@@ -50,8 +49,7 @@
 
 (secretary/defroute bet-route "/bet/:id" {id :id}
   (session/put! :current-page #'bet/bet-page-content)
-  (js/console.log (str "Bet: " id))
-  )
+  (js/console.log (str "Bet: " id)))
 
 ;; -------------------------
 ;; History
@@ -62,18 +60,15 @@
     (events/listen
      EventType/NAVIGATE
      (fn [event]
-       (secretary/dispatch! (.-token event))
-      ))
+       (secretary/dispatch! (.-token event))))
     (.setEnabled true)))
 
 ;; -------------------------
 ;; Initialize app
 
 (defn mount-root []
-  (reagent/render [current-page] (.getElementById js/document "app"))
-)
+  (reagent/render [current-page] (.getElementById js/document "app")))
 
 (defn init! []
   (hook-browser-navigation!)
-  (mount-root)
-)
+  (mount-root))
