@@ -6,27 +6,27 @@
 
   :source-paths ["src/clj" "src/cljs"]
 
-  :dependencies [[org.clojure/clojure "1.6.0"]
-                 [ring-server "0.4.0"]
-                 [cljsjs/react "0.13.1-0"]
+  :dependencies [[cljsjs/react "0.13.1-0"]
+                 [compojure "1.3.3"]
+                 [environ "1.0.0"]
                  [jayq "2.5.4"]
+                 [org.clojure/clojure "1.6.0"]
+                 [org.clojure/clojurescript "0.0-3169" :scope "provided"]
+                 [prone "0.8.1"]
                  [reagent "0.5.0"]
                  [reagent-forms "0.4.9"]
                  [reagent-utils "0.1.4"]
-                 [org.clojure/clojurescript "0.0-3169" :scope "provided"]
                  [ring "1.3.2"]
+                 [ring-server "0.4.0"]
                  [ring/ring-defaults "0.1.4"]
-                 [prone "0.8.1"]
-                 [compojure "1.3.3"]
-                 [selmer "0.8.2"]
-                 [environ "1.0.0"]
-                 [secretary "1.2.3"]]
+                 [secretary "1.2.3"]
+                 [selmer "0.8.2"]]
 
-  :plugins [[lein-cljsbuild "1.0.4"]
+  :plugins [[lein-asset-minifier "0.2.2"]
+            [lein-cljsbuild "1.0.4"]
             [lein-environ "1.0.0"]
             [lein-less "1.7.2"]
-            [lein-ring "0.9.1"]
-            [lein-asset-minifier "0.2.2"]]
+            [lein-ring "0.9.1"]]
 
   :ring {:handler reagent-test.handler/app
          :uberwar-name "reagent-test.war"}
@@ -39,13 +39,11 @@
 
   :clean-targets ^{:protect false} ["resources/public/js"]
 
-  :minify-assets
-  {:assets
-   {"resources/public/css/site.min.css" "resources/public/css/site.css"}}
+  :minify-assets {:assets {"resources/public/css/site.min.css" "resources/public/css/site.css"}}
 
   :cljsbuild {:builds {:app {:source-paths ["src/cljs"]
-                             :compiler {:output-to     "resources/public/js/app.js"
-                                        :output-dir    "resources/public/js/out"
+                             :compiler {:output-to    "resources/public/js/app.js"
+                                        :output-dir   "resources/public/js/out"
                                         :asset-path   "js/out"
                                         :optimizations :none
                                         :pretty-print  true}}}}
