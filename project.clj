@@ -13,6 +13,7 @@
                  [joplin.jdbc "0.2.12"]
                  [org.clojure/clojure "1.6.0"]
                  [org.clojure/clojurescript "0.0-3169" :scope "provided"]
+                 [org.clojure/test.check "0.7.0"]
                  [org.postgresql/postgresql "9.4-1200-jdbc41"]
                  [prone "0.8.1"]
                  [reagent "0.5.0"]
@@ -22,7 +23,8 @@
                  [ring-server "0.4.0"]
                  [ring/ring-defaults "0.1.4"]
                  [secretary "1.2.3"]
-                 [selmer "0.8.2"]]
+                 [selmer "0.8.2"]
+                 [yesql "0.4.0"]]
 
   :plugins [[lein-asset-minifier "0.2.2"]
             [lein-cljsbuild "1.0.4"]
