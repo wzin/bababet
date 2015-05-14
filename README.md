@@ -43,7 +43,7 @@ psql bababet
 psql -h localhost -p 5432 bababet
 ```
 
-## Creating new migrationb
+## Creating new migration
 
 ```clojure
 ;; in REPL
