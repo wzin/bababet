@@ -1,0 +1,57 @@
+(require '[joplin.jdbc.database])
+
+(require '[joplin.core :as joplin])
+
+;; (joplin/create-migration target "create-user-table")
+
+(def target {:db {:type :sql
+                  :url "jdbc:postgresql://localhost:5432/bababet_test?user=bababet&password=bababet"}
+             :migrator "resources/migrations"})
+
+(joplin/reset-db target)
+
+(require '[yesql.core :refer [defqueries]])
+
+(defqueries "queries/user.sql")
+
+(def db-spec {:classname "org.postgresql.Driver"
+              :subprotocol "postgresql"
+              :subname "//localhost:5432/bababet_test"
+              :user "bababet"})
+
+(defrecord User [id login password email active?])
+
+(defn- empty-user []
+  (User. nil nil nil nil nil))
+
+(defn- user-from-row [row]
+  (merge (empty-user) row))
+
+(defn get-users [db]
+  (let [result-set (db-get-users db)]
+    (map user-from-row result-set)))
+
+(defn insert-user [db user]
+  (db-insert-user! db (:login user) (:password user) (:email user) (:active? user)))
+
+
+(def user1 (->User 1 "Jan Zy" "1234" "a@b.c" true))
+
+(def user2 (->User 1 "Jan Zy 2" "1234" "a@b.cc" true))
+
+(def user3 (->User 1 "Jan Zy 3" "1234" "a@b.ccc" true))
+
+(insert-user db-spec user1)
+
+(joplin/rollback-db target)
+
+(joplin/migrate-db target)
+
+(insert-user db-spec user1)
+
+(insert-user db-spec user2)
+
+(insert-user db-spec user3)
+
+(get-users db-spec)
+
