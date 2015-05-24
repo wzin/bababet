@@ -13,6 +13,7 @@
                  [joplin.jdbc "0.2.12"]
                  [org.clojure/clojure "1.6.0"]
                  [org.clojure/clojurescript "0.0-3169" :scope "provided"]
+                 [org.clojure/java.jdbc "0.3.7"]
                  [org.clojure/test.check "0.7.0"]
                  [org.postgresql/postgresql "9.4-1200-jdbc41"]
                  [prone "0.8.1"]
