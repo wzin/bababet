@@ -55,3 +55,12 @@
 
 (get-users db-spec)
 
+(require '[clojure.java.jdbc :as sql])
+
+(joplin/reset-db target)
+
+(sql/with-db-transaction [conn db-spec]
+  (insert-user conn user1)
+  (insert-user conn user2)
+  (insert-user conn user3)
+  (get-users conn))
