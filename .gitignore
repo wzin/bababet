@@ -12,3 +12,12 @@ pom.xml.asc
 /.repl
 .DS_Store
 figwheel_server.log
+# -*- mode: gitignore; -*-
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
