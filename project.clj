@@ -25,7 +25,7 @@
                  [ring/ring-defaults "0.1.4"]
                  [secretary "1.2.3"]
                  [selmer "0.8.2"]
-                 [yesql "0.4.0"]]
+                 [yesql "0.4.2"]]
 
   :plugins [[lein-asset-minifier "0.2.2"]
             [lein-cljsbuild "1.0.4"]
