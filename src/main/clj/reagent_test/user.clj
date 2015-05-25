@@ -1,4 +1,4 @@
-(ns clj.reagent-test.user
+(ns reagent-test.user
   (:require [yesql.core :refer [defqueries]]))
 
 (defqueries "queries/user.sql")
